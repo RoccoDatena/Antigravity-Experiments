@@ -1,0 +1,129 @@
+.welcome {
+    color: rgba(240, 240, 255, 0.6);
+    margin-top: 4px;
+    font-size: 0.95rem;
+}
+
+.loading-center {
+    display: flex;
+    justify-content: center;
+    padding: 60px;
+}
+
+.stat-card {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+}
+
+.stat-icon {
+    font-size: 1.5rem;
+}
+
+.stat-value {
+    font-size: 2.25rem;
+    font-weight: 700;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: rgba(240, 240, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.todo-val {
+    color: #60a5fa;
+}
+
+.inprogress-val {
+    color: #fbbf24;
+}
+
+.done-val {
+    color: #34d399;
+}
+
+.progress-bar {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 4px;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.6s ease;
+}
+
+.todo-fill {
+    background: #3b82f6;
+}
+
+.inprogress-fill {
+    background: #f59e0b;
+}
+
+.done-fill {
+    background: #10b981;
+}
+
+.quick-actions {
+    margin-top: 20px;
+    padding: 24px;
+}
+
+.quick-actions h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.actions-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.action-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(240, 240, 255, 0.8);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.action-item:hover {
+    background: rgba(124, 58, 237, 0.15);
+    border-color: rgba(124, 58, 237, 0.3);
+    color: #fff;
+}
+
+.action-item.high:hover {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.action-item.admin:hover {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.action-icon {
+    font-size: 1.1rem;
+}

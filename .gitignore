@@ -1,0 +1,29 @@
+# ─── Build outputs ───────────────────────────────────────────────────────────
+task-manager-backend/target/
+task-manager/dist/
+task-manager/.angular/
+
+# ─── Maven wrapper cache (downloaded locally, not needed in repo) ─────────────
+task-manager-backend/.m2/
+
+# ─── Node modules ────────────────────────────────────────────────────────────
+task-manager/node_modules/
+
+# ─── JVM crash reports (never commit these) ──────────────────────────────────
+hs_err_pid*.log
+replay_pid*.log
+
+# ─── IDE / Editor ────────────────────────────────────────────────────────────
+.idea/
+*.iml
+.vscode/settings.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+.DS_Store
+
+# ─── Secrets & environment overrides ─────────────────────────────────────────
+*.env
+application-prod.properties
+application-local.properties

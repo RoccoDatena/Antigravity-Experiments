@@ -1,0 +1,71 @@
+<div class="page-container">
+    <div class="page-header animate-in">
+        <div>
+            <h1 class="page-title">Dashboard</h1>
+            <p class="welcome">Welcome back, <strong>{{ authService.getUsername() }}</strong> 👋</p>
+        </div>
+        <a routerLink="/tasks" class="btn btn-primary">+ New Task</a>
+    </div>
+
+    <div *ngIf="loading" class="loading-center">
+        <div class="spinner"></div>
+    </div>
+
+    <div *ngIf="!loading">
+        <!-- Stat Cards -->
+        <div class="grid-4 animate-in">
+            <div class="stat-card glass-card">
+                <div class="stat-icon total">📋</div>
+                <div class="stat-value">{{ stats.total }}</div>
+                <div class="stat-label">Total Tasks</div>
+            </div>
+            <div class="stat-card glass-card">
+                <div class="stat-icon todo">🔵</div>
+                <div class="stat-value todo-val">{{ stats.todo }}</div>
+                <div class="stat-label">To Do</div>
+                <div class="progress-bar">
+                    <div class="progress-fill todo-fill" [style.width.%]="todoPercent"></div>
+                </div>
+            </div>
+            <div class="stat-card glass-card">
+                <div class="stat-icon inprogress">🟡</div>
+                <div class="stat-value inprogress-val">{{ stats.inProgress }}</div>
+                <div class="stat-label">In Progress</div>
+                <div class="progress-bar">
+                    <div class="progress-fill inprogress-fill" [style.width.%]="inProgressPercent"></div>
+                </div>
+            </div>
+            <div class="stat-card glass-card">
+                <div class="stat-icon done">🟢</div>
+                <div class="stat-value done-val">{{ stats.done }}</div>
+                <div class="stat-label">Done</div>
+                <div class="progress-bar">
+                    <div class="progress-fill done-fill" [style.width.%]="donePercent"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions glass-card animate-in">
+            <h2>Quick Actions</h2>
+            <div class="actions-row">
+                <a routerLink="/tasks" [queryParams]="{status:'TODO'}" class="action-item">
+                    <span class="action-icon">📝</span>
+                    <span>View To-Do</span>
+                </a>
+                <a routerLink="/tasks" [queryParams]="{status:'IN_PROGRESS'}" class="action-item">
+                    <span class="action-icon">⚡</span>
+                    <span>In Progress</span>
+                </a>
+                <a routerLink="/tasks" [queryParams]="{priority:'HIGH'}" class="action-item high">
+                    <span class="action-icon">🔥</span>
+                    <span>High Priority</span>
+                </a>
+                <a *ngIf="authService.isAdmin()" routerLink="/users" class="action-item admin">
+                    <span class="action-icon">👥</span>
+                    <span>Manage Users</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

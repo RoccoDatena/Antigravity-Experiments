@@ -1,0 +1,20 @@
+<nav class="navbar">
+    <a class="navbar-brand" routerLink="/dashboard">
+        <span class="brand-icon">⚡</span>
+        TaskManager
+    </a>
+
+    <div class="navbar-links">
+        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+        <a routerLink="/tasks" routerLinkActive="active">Tasks</a>
+        <a *ngIf="authService.isAdmin()" routerLink="/users" routerLinkActive="active">Users</a>
+    </div>
+
+    <div class="navbar-user">
+        <span class="username">{{ authService.getUsername() }}</span>
+        <span class="role-badge" [class.admin]="authService.isAdmin()">
+            {{ authService.getRole() }}
+        </span>
+        <button class="btn btn-ghost btn-sm" (click)="logout()">Logout</button>
+    </div>
+</nav>

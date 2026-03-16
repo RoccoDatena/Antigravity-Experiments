@@ -1,0 +1,90 @@
+.auth-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 40px 36px;
+    text-align: center;
+}
+
+.auth-logo {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+    display: block;
+    filter: drop-shadow(0 0 12px rgba(124, 58, 237, 0.6));
+}
+
+.auth-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.auth-subtitle {
+    color: rgba(240, 240, 255, 0.5);
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+}
+
+.auth-form {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.auth-footer {
+    font-size: 0.875rem;
+    color: rgba(240, 240, 255, 0.5);
+    margin-top: 16px;
+}
+
+.auth-footer a {
+    color: #9f67fa;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+.demo-creds {
+    margin-top: 16px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: rgba(124, 58, 237, 0.08);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    font-size: 0.8rem;
+    color: rgba(240, 240, 255, 0.5);
+}
+
+.demo-creds code {
+    color: #9f67fa;
+    background: rgba(124, 58, 237, 0.12);
+    padding: 1px 5px;
+    border-radius: 4px;
+}
+
+.spinner-sm {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

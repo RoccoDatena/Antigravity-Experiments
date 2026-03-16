@@ -1,0 +1,93 @@
+.loading-center {
+    display: flex;
+    justify-content: center;
+    padding: 60px;
+}
+
+.admin-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: rgba(124, 58, 237, 0.15);
+    color: #9f67fa;
+    border: 1px solid rgba(124, 58, 237, 0.3);
+}
+
+.users-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.user-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    transition: transform 0.2s;
+}
+
+.user-card:hover {
+    transform: translateY(-3px);
+}
+
+.user-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7c3aed, #9f67fa);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.user-info {
+    flex: 1;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.user-email {
+    font-size: 0.8rem;
+    color: rgba(240, 240, 255, 0.45);
+    margin-top: 2px;
+}
+
+.role-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    flex-shrink: 0;
+}
+
+.role-badge.admin {
+    background: rgba(124, 58, 237, 0.15);
+    color: #9f67fa;
+    border-color: rgba(124, 58, 237, 0.3);
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 60px;
+    text-align: center;
+}
+
+.empty-state span {
+    font-size: 3rem;
+}

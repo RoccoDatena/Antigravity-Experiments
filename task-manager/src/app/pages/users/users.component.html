@@ -1,0 +1,27 @@
+<div class="page-container">
+    <div class="page-header animate-in">
+        <h1 class="page-title">User Management</h1>
+        <span class="admin-badge">Admin Only</span>
+    </div>
+
+    <div *ngIf="loading" class="loading-center">
+        <div class="spinner"></div>
+    </div>
+    <div *ngIf="error" class="alert alert-error">{{ error }}</div>
+
+    <div class="users-grid animate-in" *ngIf="!loading && users.length > 0">
+        <div class="user-card glass-card" *ngFor="let user of users">
+            <div class="user-avatar">{{ user.username[0].toUpperCase() }}</div>
+            <div class="user-info">
+                <div class="user-name">{{ user.username }}</div>
+                <div class="user-email">{{ user.email }}</div>
+            </div>
+            <span class="role-badge" [class.admin]="user.role === 'ADMIN'">{{ user.role }}</span>
+        </div>
+    </div>
+
+    <div *ngIf="!loading && users.length === 0" class="empty-state glass-card">
+        <span>👥</span>
+        <p>No users found</p>
+    </div>
+</div>
