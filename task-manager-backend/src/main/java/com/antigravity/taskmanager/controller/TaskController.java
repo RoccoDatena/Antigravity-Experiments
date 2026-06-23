@@ -21,6 +21,7 @@ public class TaskController {
 
     private final TaskService taskService;
     private final UserRepository userRepository;
+    private final com.antigravity.taskmanager.service.AwsBedrockService awsBedrockService;
 
     @GetMapping
     public ResponseEntity<List<TaskResponse>> getTasks(
@@ -65,6 +66,23 @@ public class TaskController {
     @GetMapping("/stats")
     public ResponseEntity<Map<String, Long>> getStats() {
         return ResponseEntity.ok(taskService.getStats());
+    }
+
+    @GetMapping("/{id}/ai-suggest")
+    public ResponseEntity<List<String>> getAiSuggestions(
+            @PathVariable Long id,
+            @AuthenticationPrincipal UserDetails userDetails
+    ) {
+        User user = getUser(userDetails);
+        // We load the task to verify ownership/access
+        List<TaskResponse> userTasks = taskService.getTasks(user, null, null, null);
+        TaskResponse targetTask = userTasks.stream()
+                .filter(t -> t.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Task not found or access denied"));
+
+        List<String> suggestions = awsBedrockService.suggestSubtasks(targetTask.getTitle(), targetTask.getDescription());
+        return ResponseEntity.ok(suggestions);
     }
 
     private User getUser(UserDetails userDetails) {

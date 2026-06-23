@@ -33,16 +33,45 @@ A modern, full-stack task management app with **JWT authentication**, **role-bas
 
 ## 🏗️ Architecture
 
+
 ```
 task-manager/            ← Angular 17 frontend (port 4200)
 task-manager-backend/    ← Spring Boot 3 backend (port 8080)
 ```
 
+### Local Architecture
 ```mermaid
 graph LR
     A["Angular Frontend\n(port 4200)"] -- "HTTP + JWT Bearer" --> B["Spring Boot API\n(port 8080)"]
     B --> C[("H2 In-Memory DB")]
     B --> D["Spring Security\n(JWT Filter Chain)"]
+```
+
+### Production Target Architecture (AWS Cloud)
+The infrastructure is defined as code in the `terraform/` directory.
+
+```mermaid
+graph TD
+    Client["User Browser"] -->|HTTPS| CF["Amazon CloudFront (CDN)"]
+    CF -->|Static Assets| S3["Amazon S3 Bucket"]
+    Client -->|API Requests| ALB["Application Load Balancer"]
+    
+    subgraph VPC["AWS VPC (10.0.0.0/16)"]
+        subgraph PublicSubnets["Public Subnets (HA)"]
+            ALB
+            NGW["NAT Gateway"]
+        end
+        
+        subgraph PrivateSubnets["Private Subnets (HA)"]
+            ECS["ECS Fargate Containers\n(Spring Boot Backend)"]
+            RDS[("RDS PostgreSQL\n(Managed DB)")]
+        end
+    end
+    
+    ECS -->|JDBC| RDS
+    ECS -->|IAM Role Authed| Bedrock["Amazon Bedrock\n(Claude 3 AI Model)"]
+    ECS -->|Outbound traffic| NGW
+    NGW -->|Internet| Bedrock
 ```
 
 ---
@@ -182,6 +211,33 @@ spring.datasource.url=jdbc:postgresql://localhost:5432/taskmanager
 spring.datasource.driver-class-name=org.postgresql.Driver
 spring.jpa.hibernate.ddl-auto=update
 ```
+
+---
+
+## ☁️ AWS Cloud & AI Integration
+
+This project is architected with modern cloud-native patterns and AI integration, aligned with **AWS Certified Solutions Architect** and **AWS Certified AI Practitioner** standards.
+
+### 🧠 Amazon Bedrock AI Suggestions
+The backend includes an integration with **Amazon Bedrock** (`AwsBedrockService.java`) that leverages the **Anthropic Claude 3 Haiku** model.
+- **Endpoint:** `GET /api/tasks/{id}/ai-suggest`
+- **Behavior:** The AI analyzes the task's title and description to automatically generate 3 actionable subtasks as a structured JSON response.
+- **Local Fallback:** If Bedrock is disabled, a local mock-up service returns standard suggestions, keeping the app fully functional offline.
+
+To enable Bedrock locally:
+1. Ensure you have AWS credentials configured (e.g., in `~/.aws/credentials`).
+2. Add the following to `application.properties`:
+   ```properties
+   app.aws.bedrock.enabled=true
+   app.aws.region=eu-west-1
+   ```
+
+### 🏗️ Infrastructure as Code (Terraform)
+The `terraform/` directory defines a production-ready, highly available, secure deployment environment on AWS:
+- **Security (VPC):** Public and Private subnets across multiple Availability Zones. ECS backend runs on private subnets, reachable only via the Application Load Balancer. Database (RDS PostgreSQL) is restricted to private subnets.
+- **Serverless Compute (ECS Fargate):** Scalable Docker container orchestration without managing underlying EC2 hosts.
+- **Global CDN (S3 + CloudFront):** Angular frontend static hosting on S3 with Origin Access Control (OAC), restricting access exclusively to CloudFront.
+- **Least Privilege (IAM):** ECS task execution roles grant strict access to logging and ECR, with a dedicated policy allowing Bedrock model invocation (`bedrock:InvokeModel`).
 
 ---
 
