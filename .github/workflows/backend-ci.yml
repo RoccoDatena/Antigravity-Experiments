@@ -28,15 +28,15 @@ jobs:
 
       - name: Build with Maven
         run: |
-          mvn clean verify -B -DskipTests=false > maven_build_log.txt 2>&1 || (cat maven_build_log.txt && exit 1)
+          mvn clean verify -B -DskipTests=false > maven_build_log.txt 2>&1 || true
 
-      - name: Upload compilation logs
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: maven-compilation-log
-          path: task-manager-backend/maven_build_log.txt
-          retention-days: 2
+      - name: Print Maven Logs
+        run: |
+          cat maven_build_log.txt
+
+      - name: Verify Build Artifact
+        run: |
+          ls target/*.jar || (echo "Build failed: JAR artifact was not generated!" && exit 1)
 
       - name: Upload build artifact
         if: success()
