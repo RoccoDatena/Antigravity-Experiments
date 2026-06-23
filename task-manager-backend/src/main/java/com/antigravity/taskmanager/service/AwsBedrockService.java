@@ -48,7 +48,6 @@ public class AwsBedrockService {
             payload.put("max_tokens", 256);
             payload.put("temperature", 0.5);
 
-            JSONObject systemObj = new JSONObject();
             payload.put("system", systemPrompt);
 
             JSONArray messages = new JSONArray();
@@ -65,7 +64,7 @@ public class AwsBedrockService {
                     .build();
 
             InvokeModelResponse response = client.invokeModel(request);
-            String responseBody = response.body().asString(StandardCharsets.UTF_8);
+            String responseBody = response.body().asUtf8String();
 
             JSONObject responseJson = new JSONObject(responseBody);
             String textResult = responseJson.getJSONArray("content")
