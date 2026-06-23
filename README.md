@@ -4,12 +4,15 @@
 
 ### Full-Stack Task Management Application
 
+[![Backend CI](https://github.com/RoccoDatena/Antigravity-Experiments/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/RoccoDatena/Antigravity-Experiments/actions/workflows/backend-ci.yml)
+[![Frontend CI](https://github.com/RoccoDatena/Antigravity-Experiments/actions/workflows/frontend-ci.yml/badge.svg)](https://github.com/RoccoDatena/Antigravity-Experiments/actions/workflows/frontend-ci.yml)
+
 [![Java](https://img.shields.io/badge/Java-17%2B-orange?style=flat-square&logo=openjdk)](https://adoptium.net/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.2-brightgreen?style=flat-square&logo=springboot)](https://spring.io/projects/spring-boot)
 [![Angular](https://img.shields.io/badge/Angular-17-red?style=flat-square&logo=angular)](https://angular.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
 
-A modern, full-stack task management app with **JWT authentication**, **role-based access control**, and a **Glassmorphism** UI.
+A modern, full-stack task management app with **JWT authentication**, **role-based access control**, **CI/CD pipelines**, and a **Glassmorphism** UI.
 
 </div>
 
@@ -179,6 +182,49 @@ spring.datasource.url=jdbc:postgresql://localhost:5432/taskmanager
 spring.datasource.driver-class-name=org.postgresql.Driver
 spring.jpa.hibernate.ddl-auto=update
 ```
+
+---
+
+## 🔄 DevOps & CI/CD
+
+This project implements **Continuous Integration** using **GitHub Actions** with two independent pipelines that run automatically on every push and pull request.
+
+### Pipeline Overview
+
+```mermaid
+graph LR
+    A["git push / PR"] --> B{"GitHub Actions"}
+    B --> C["Backend CI"]
+    B --> D["Frontend CI"]
+    C --> E["JDK 21 Setup"]
+    E --> F["Maven Build & Test"]
+    F --> G["Upload JAR Artifact"]
+    D --> H["Node 20 Setup"]
+    H --> I["npm ci"]
+    I --> J["Production Build"]
+    J --> K["Upload Dist Artifact"]
+```
+
+### Backend CI (`backend-ci.yml`)
+
+| Step | Description |
+|------|-------------|
+| **Checkout** | Clones the repository |
+| **JDK 21 (Temurin)** | Sets up Java with Maven dependency caching |
+| **Build & Verify** | Runs `./mvnw clean verify` (compile + tests) |
+| **Upload Artifact** | Stores the built `.jar` for 7 days |
+
+### Frontend CI (`frontend-ci.yml`)
+
+| Step | Description |
+|------|-------------|
+| **Checkout** | Clones the repository |
+| **Node.js 20** | Sets up Node with npm dependency caching |
+| **Install** | Clean install via `npm ci` |
+| **Build** | Production build with ahead-of-time compilation |
+| **Upload Artifact** | Stores the `dist/` bundle for 7 days |
+
+> 💡 Both pipelines use **path filtering** — backend changes only trigger the backend pipeline, and vice versa.
 
 ---
 
