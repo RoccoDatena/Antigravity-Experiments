@@ -3,12 +3,8 @@ name: Frontend CI
 on:
   push:
     branches: [ main, master ]
-    paths:
-      - 'task-manager/**'
   pull_request:
     branches: [ main, master ]
-    paths:
-      - 'task-manager/**'
 
 jobs:
   build:

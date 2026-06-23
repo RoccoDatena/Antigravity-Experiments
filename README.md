@@ -224,7 +224,7 @@ graph LR
 | **Build** | Production build with ahead-of-time compilation |
 | **Upload Artifact** | Stores the `dist/` bundle for 7 days |
 
-> 💡 Both pipelines use **path filtering** — backend changes only trigger the backend pipeline, and vice versa.
+> 💡 Both pipelines run automatically on every push and pull request to `main`.
 
 ---
 

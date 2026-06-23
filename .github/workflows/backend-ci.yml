@@ -3,12 +3,8 @@ name: Backend CI
 on:
   push:
     branches: [ main, master ]
-    paths:
-      - 'task-manager-backend/**'
   pull_request:
     branches: [ main, master ]
-    paths:
-      - 'task-manager-backend/**'
 
 jobs:
   build:
