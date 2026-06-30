@@ -27,16 +27,7 @@ jobs:
           cache: 'maven'
 
       - name: Build with Maven
-        run: |
-          mvn clean verify -B -DskipTests=false > maven_build_log.txt 2>&1 || true
-
-      - name: Print Maven Logs
-        run: |
-          cat maven_build_log.txt
-
-      - name: Verify Build Artifact
-        run: |
-          ls target/*.jar || (echo "Build failed: JAR artifact was not generated!" && exit 1)
+        run: mvn clean verify -B
 
       - name: Upload build artifact
         if: success()
